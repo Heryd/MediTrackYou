@@ -46,15 +46,12 @@ public class LoginActivity extends AppCompatActivity {
         mantenerSesion = findViewById(R.id.chkMantenerSesion);
         cargarCredenciales();
     }
-
     public String getPasswordVault() {
         return passwordVault;
     }
-
     public String getUserVault() {
         return userVault;
     }
-
     private void cargarCredenciales() {
         SharedPreferences shpLogin = getSharedPreferences("CredencialAcceso", Context.MODE_PRIVATE);
         String user_tmp = shpLogin.getString("userSHP", "");
@@ -67,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
             mantenerSesion.setChecked(false);
         }
     }
-
     private void guardarCredenciales(String user, String password) {
         SharedPreferences shpLogin = getSharedPreferences("CredencialAcceso", Context.MODE_PRIVATE);
         SharedPreferences.Editor shpLoginEdit = shpLogin.edit();
@@ -75,11 +71,9 @@ public class LoginActivity extends AppCompatActivity {
         shpLoginEdit.putString("passwordSHP", password);
         shpLoginEdit.commit();
     }
-
     protected Boolean validateCredentials(Editable userInput, Editable passwordInput) {
         return (userInput.toString().trim().equals(getUserVault()) && passwordInput.toString().trim().equals(getPasswordVault()));
     }
-
     public void login(View v) {
         if (mantenerSesion.isChecked()) {
             guardarCredenciales(String.valueOf(user.getText()), String.valueOf(password.getText()));
@@ -92,6 +86,16 @@ public class LoginActivity extends AppCompatActivity {
 
         } else {
             Toast.makeText(v.getContext(), "Datos Incorrectos", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void register(View v) {
+        try {
+            Intent ventanaRegistro = new Intent(v.getContext(), RegisterActivity.class);
+            startActivity(ventanaRegistro);
+        } catch (Exception e) {
+            //throw new RuntimeException(e);
+            Toast.makeText(v.getContext(), "Ha ocurrido un error", Toast.LENGTH_LONG).show();
         }
     }
 
