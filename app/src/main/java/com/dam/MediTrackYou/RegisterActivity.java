@@ -131,4 +131,28 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    //Method for clearing user-filled fields as well as selected views
+    public void cleanFields(View v) {
+
+        // EditTexts del paciente
+        cedulaP.setText("");
+        nombresP.setText("");
+        apellidosP.setText("");
+        edadP.setText("");
+        fecha_nacimientoP.setText("");
+        spinner_genero.setSelection(0);
+        spinner_nacionalidad.setSelection(0);
+
+        // EditTexts del cuidador
+        cedulaCui.setText("");
+        nombresCui.setText("");
+        apellidosCui.setText("");
+        edadCui.setText("");
+        emailCui.setText("");
+        telefonoCui.setText("");
+        clave.setText("");
+
+        terms_and_conditions.setChecked(false);
+    }
+
 }
