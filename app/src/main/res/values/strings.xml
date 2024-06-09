@@ -1,3 +1,45 @@
 <resources>
     <string name="app_name">MediTrackYou</string>
+    <string-array name="spinner_gender">
+        <item>Seleccionar...</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Prefiero no decirlo</item>
+    </string-array>
+    <string-array name="spinner_nationality">
+        <item>Seleccionar...</item>
+        <item>Argentina</item>
+        <item>Australia</item>
+        <item>Brasil</item>
+        <item>Canadá</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Colombia</item>
+        <item>Corea del Sur</item>
+        <item>Costa Rica</item>
+        <item>Cuba</item>
+        <item>Ecuador</item>
+        <item>España</item>
+        <item>Estados Unidos</item>
+        <item>Francia</item>
+        <item>Guatemala</item>
+        <item>Honduras</item>
+        <item>India</item>
+        <item>Italia</item>
+        <item>Japón</item>
+        <item>México</item>
+        <item>Nicaragua</item>
+        <item>Panamá</item>
+        <item>Paraguay</item>
+        <item>Perú</item>
+        <item>Portugal</item>
+        <item>Reino Unido</item>
+        <item>República Dominicana</item>
+        <item>Rusia</item>
+        <item>Uruguay</item>
+        <item>Venezuela</item>
+    </string-array>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#1D0D32</color>
 </resources>
