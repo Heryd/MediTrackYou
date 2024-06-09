@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyOpenHelper extends SQLiteOpenHelper {
 
     public static final String usuario = "CREATE TABLE user ( " +
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "id_user INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "dni TEXT," +
             "age INTEGER," +
             "name TEXT," +
@@ -33,7 +33,6 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 
 }
