@@ -100,4 +100,35 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    //Check the status of the SD card and save the field data to the external memory.
+    private int verifyStatusSD() {
+        String status = Environment.getExternalStorageState();
+        switch (status) {
+            case Environment.MEDIA_MOUNTED:
+                Toast.makeText(this, "Memoria montada correctamente", Toast.LENGTH_LONG).show();
+                return 0;
+            case Environment.MEDIA_MOUNTED_READ_ONLY:
+                Toast.makeText(this, "Memoria solo de Lectura", Toast.LENGTH_LONG).show();
+                return 1;
+            default:
+                Toast.makeText(this, "Error de Memoria, no se puede guardar", Toast.LENGTH_LONG).show();
+                return 2;
+        }
+    }
+
+    private boolean saveDataOnSD(String data) {
+        try {
+            OutputStreamWriter out;
+            out = new OutputStreamWriter(new FileOutputStream(
+                    new File(getExternalFilesDir(null),
+                            "Registro_Usuario.txt"), true));
+            out.write(data);
+            out.close();
+            return true;
+        } catch (Exception e) {
+            Log.e("SaveData_on_SD", "Error al guardar en SD");
+            return false;
+        }
+    }
+
 }
