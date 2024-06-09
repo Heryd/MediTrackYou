@@ -1,6 +1,6 @@
 package com.dam.MediTrackYou.model;
 
-public abstract class Person {
+public class Person {
     //Primary Fields
     private int dni;
     private String email;
