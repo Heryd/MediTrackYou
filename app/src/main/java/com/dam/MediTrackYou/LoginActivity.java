@@ -1,5 +1,7 @@
 package com.dam.MediTrackYou;
 
+import com.dam.MediTrackYou.model.Person;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
