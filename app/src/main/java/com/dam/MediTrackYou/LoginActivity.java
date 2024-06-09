@@ -80,4 +80,20 @@ public class LoginActivity extends AppCompatActivity {
         return (userInput.toString().trim().equals(getUserVault()) && passwordInput.toString().trim().equals(getPasswordVault()));
     }
 
+    public void login(View v) {
+        if (mantenerSesion.isChecked()) {
+            guardarCredenciales(String.valueOf(user.getText()), String.valueOf(password.getText()));
+        }
+
+        if (validateCredentials(user.getText(), password.getText())) {
+            Toast.makeText(v.getContext(), "Acceso Concedido al Usuario " + user.getText(), Toast.LENGTH_LONG).show();
+            Intent mainScreen = new Intent(v.getContext(), MainActivity.class);
+            startActivity(mainScreen);
+
+        } else {
+            Toast.makeText(v.getContext(), "Datos Incorrectos", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 }
