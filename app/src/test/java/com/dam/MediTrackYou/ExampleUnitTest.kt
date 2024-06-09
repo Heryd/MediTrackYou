@@ -1,4 +1,4 @@
-package com.example.meditrackyou
+package com.dam.MediTrackYou
 
 import org.junit.Test
 

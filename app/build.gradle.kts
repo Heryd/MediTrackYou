@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.meditrackyou"
+    namespace = "com.dam.MediTrackYou"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.meditrackyou"
+        applicationId = "com.dam.MediTrackYou"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
