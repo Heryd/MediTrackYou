@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">MediTrackYou</string>
     <string-array name="spinner_gender">
-        <item>Seleccionar...</item>
+        <item>Seleccionar</item>
         <item>Masculino</item>
         <item>Femenino</item>
         <item>Prefiero no decirlo</item>
     </string-array>
     <string-array name="spinner_nationality">
-        <item>Seleccionar...</item>
+        <item>Seleccionar</item>
         <item>Argentina</item>
         <item>Australia</item>
         <item>Brasil</item>
