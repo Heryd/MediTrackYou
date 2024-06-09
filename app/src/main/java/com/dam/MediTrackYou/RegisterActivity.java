@@ -24,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
     private CheckBox terms_and_conditions;
@@ -33,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
     private ArrayAdapter<CharSequence> adapter;
 
     private Button boton_registrar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +153,21 @@ public class RegisterActivity extends AppCompatActivity {
         clave.setText("");
 
         terms_and_conditions.setChecked(false);
+    }
+
+    public void openDialog(View v) {
+        DatePickerDialog dp_Dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                fecha_nacimientoP.setText(String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(day));
+            }
+        }, 2024, 5, 17);
+
+        dp_Dialog.show();
+    }
+
+    public void close(View v) {
+        finish();
     }
 
 }
