@@ -24,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+
 public class RegisterActivity extends AppCompatActivity {
     private CheckBox terms_and_conditions;
     private EditText cedulaP, nombresP, apellidosP, edadP, fecha_nacimientoP,
@@ -76,6 +77,26 @@ public class RegisterActivity extends AppCompatActivity {
 
         //CheckBox
         terms_and_conditions = findViewById(R.id.chb_terms_and_conditions);
+
+    }
+
+    private String obtenerDatos() {
+        return "Datos del Paciente:\n" +
+                "Cédula: " + cedulaP.getText().toString().trim() + ";" +
+                "Nombre: " + nombresP.getText().toString().trim() + ";" +
+                "Apellido: " + apellidosP.getText().toString().trim() + ";" +
+                "Edad: " + edadP.getText().toString().trim() + ";" +
+                "Fecha de Nacimiento: " + fecha_nacimientoP.getText().toString().trim() + ";" +
+                "Género: " + spinner_genero.getSelectedItem().toString().equalsIgnoreCase("Seleccionar...") + ";" +
+                "Nacionalidad: " + spinner_nacionalidad.getSelectedItem().toString().equalsIgnoreCase("Seleccionar...") + "\n\n" +
+                "Datos del Cuidador:\n" +
+                "Cédula: " + cedulaCui.getText().toString().trim() + ";" +
+                "Nombres: " + nombresCui.getText().toString().trim() + ";" +
+                "Apellidos: " + apellidosCui.getText().toString().trim() + ";" +
+                "Edad: " + edadCui.getText().toString().trim() + ";" +
+                "Email: " + emailCui.getText().toString().trim() + ";" +
+                "Teléfono: " + telefonoCui.getText().toString().trim() + ";" +
+                "Clave: " + clave.getText().toString().trim() + "\n\n";
 
     }
 
