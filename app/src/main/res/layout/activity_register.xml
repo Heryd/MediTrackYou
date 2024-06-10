@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".auth.register.RegisterActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_top"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
+        android:background="@color/colorAccent"
         android:gravity="start|fill_horizontal"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:title="Registro a la App"
+        app:title="Nuevo Usuario"
         app:titleTextColor="@color/white" />
 
     <LinearLayout
@@ -34,39 +34,22 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8">
+        app:layout_constraintVertical_bias="0.5">
 
-        <TextView
-            android:id="@+id/lbl_DatosPaciente"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dni_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#E2D8F3"
-            android:text="Datos del Paciente"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/txt_CedulaPaciente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:allowUndo="true"
-                android:ems="10"
-                android:hint="Cédula"
-                android:inputType="number" />
-
-            <EditText
-                android:id="@+id/txt_EdadPaciente"
-                android:layout_width="117dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_dni"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Edad"
+                android:hint="@string/dni"
                 android:inputType="number" />
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,25 +57,76 @@
             android:gravity="fill_horizontal|center_vertical"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_NombrePaciente"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_layout"
                 android:layout_width="164dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="center_horizontal|center_vertical|start|right"
-                android:hint="Nombres"
-                android:inputType="text"
-                android:textAlignment="gravity" />
+                android:layout_marginRight="3dp"
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/txt_ApellidoPaciente"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/name"
+                    android:inputType="text|textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastname_layout"
                 android:layout_width="164dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|right"
-                android:hint="Apellidos"
-                android:inputType="text"
-                android:textAlignment="gravity" />
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/lastname"
+                    android:inputType="text|textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/phoneAndAge_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_layout"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/phone"
+                    android:inputType="phone|numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/age_layout"
+                android:layout_width="164dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/age"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -100,14 +134,21 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txt_FechaNacimientoPaciente"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/birthDate_layout"
                 android:layout_width="215dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:enabled="false"
-                android:hint="Fecha de Nacimiento"
-                android:inputType="date" />
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_birthDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:hint="@string/birth_date"
+                    android:inputType="date|text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_Date"
@@ -121,171 +162,35 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:passwordToggleEnabled="true">
 
-            <TextView
-                android:id="@+id/lbl_gender"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="start|center_vertical"
-                android:text="Género"
-                android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spn_Gender"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_password"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/spinner_gender"
-                android:spinnerMode="dropdown" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmPassword_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:passwordToggleEnabled="true">
 
-            <TextView
-                android:id="@+id/lbl_nationality"
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="start|center_vertical"
-                android:text="Nacionalidad"
-                android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spn_Nationality"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/spinner_nationality"
-                android:spinnerMode="dropdown" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="17dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="fill_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/lbl_DatosCuidador"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_confirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="#E1D7F2"
-                android:text="Datos del Cuidador"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/txt_CedulaCuidador"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:allowUndo="true"
-                android:ems="10"
-                android:hint="Cédula"
-                android:inputType="number" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/txt_NombresCuidador"
-                    android:layout_width="164dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Nombres"
-                    android:inputType="text" />
-
-                <EditText
-                    android:id="@+id/txt_ApellidosCuidador"
-                    android:layout_width="164dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Apellidos"
-                    android:inputType="text" />
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/txt_EmailCui"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/txt_PhoneCui"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Teléfono"
-                    android:inputType="phone" />
-
-                <EditText
-                    android:id="@+id/txt_EdadCuidador"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Edad"
-                    android:inputType="number" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="7dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/txt_Clave"
-                android:layout_width="164dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Clave"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/txt_ConfirmarClave"
-                android:layout_width="165dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Repetir Clave"
-                android:inputType="text" />
-        </LinearLayout>
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
             android:id="@+id/chb_terms_and_conditions"

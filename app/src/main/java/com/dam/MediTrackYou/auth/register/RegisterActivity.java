@@ -1,4 +1,4 @@
-package com.dam.MediTrackYou;
+package com.dam.MediTrackYou.auth.register;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.dam.MediTrackYou.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,30 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void asignarValores() {
-        //EditText Datos Paciente
-        cedulaP = findViewById(R.id.txt_CedulaPaciente);
-        nombresP = findViewById(R.id.txt_NombrePaciente);
-        apellidosP = findViewById(R.id.txt_ApellidoPaciente);
-        edadP = findViewById(R.id.txt_EdadPaciente);
-        fecha_nacimientoP = findViewById(R.id.txt_FechaNacimientoPaciente);
-
-        //EditText Datos Cuidador
-        cedulaCui = findViewById(R.id.txt_CedulaCuidador);
-        nombresCui = findViewById(R.id.txt_NombresCuidador);
-        apellidosCui = findViewById(R.id.txt_ApellidosCuidador);
-        edadCui = findViewById(R.id.txt_EdadCuidador);
-        emailCui = findViewById(R.id.txt_EmailCui);
-        telefonoCui = findViewById(R.id.txt_PhoneCui);
-        clave = findViewById(R.id.txt_Clave);
-
-        //Spinner
-        spinner_genero = findViewById(R.id.spn_Gender);
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_gender, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_genero.setAdapter(adapter);
-        spinner_nacionalidad = findViewById(R.id.spn_Nationality);
-
         //Button
         boton_registrar = findViewById(R.id.btn_Register);
 
@@ -100,57 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    //Check the status of the SD card and save the field data to the external memory.
-    private int verifyStatusSD() {
-        String status = Environment.getExternalStorageState();
-        switch (status) {
-            case Environment.MEDIA_MOUNTED:
-                Toast.makeText(this, "Memoria montada correctamente", Toast.LENGTH_LONG).show();
-                return 0;
-            case Environment.MEDIA_MOUNTED_READ_ONLY:
-                Toast.makeText(this, "Memoria solo de Lectura", Toast.LENGTH_LONG).show();
-                return 1;
-            default:
-                Toast.makeText(this, "Error de Memoria, no se puede guardar", Toast.LENGTH_LONG).show();
-                return 2;
-        }
-    }
-
-    private boolean saveDataOnSD(String data) {
-        try {
-            OutputStreamWriter out;
-            out = new OutputStreamWriter(new FileOutputStream(
-                    new File(getExternalFilesDir(null),
-                            "Registro_Usuario.txt"), true));
-            out.write(data);
-            out.close();
-            return true;
-        } catch (Exception e) {
-            Log.e("SaveData_on_SD", "Error al guardar en SD");
-            return false;
-        }
-    }
-
     //Method for clearing user-filled fields as well as selected views
     public void cleanFields(View v) {
-
-        // EditTexts del paciente
-        cedulaP.setText("");
-        nombresP.setText("");
-        apellidosP.setText("");
-        edadP.setText("");
-        fecha_nacimientoP.setText("");
-        spinner_genero.setSelection(0);
-        spinner_nacionalidad.setSelection(0);
-
-        // EditTexts del cuidador
-        cedulaCui.setText("");
-        nombresCui.setText("");
-        apellidosCui.setText("");
-        edadCui.setText("");
-        emailCui.setText("");
-        telefonoCui.setText("");
-        clave.setText("");
 
         terms_and_conditions.setChecked(false);
     }
