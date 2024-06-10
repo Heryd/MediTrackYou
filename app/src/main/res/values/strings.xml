@@ -42,4 +42,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#1D0D32</color>
+
+    <string name="password">Contraseña</string>
+    <string name="username">Usuario</string>
 </resources>
