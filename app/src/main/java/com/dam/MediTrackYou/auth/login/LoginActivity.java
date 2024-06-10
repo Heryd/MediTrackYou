@@ -1,6 +1,8 @@
-package com.dam.MediTrackYou;
+package com.dam.MediTrackYou.auth.login;
 
-import com.dam.MediTrackYou.model.Person;
+import com.dam.MediTrackYou.MainActivity;
+import com.dam.MediTrackYou.R;
+import com.dam.MediTrackYou.auth.register.RegisterActivity;
 
 import android.content.Context;
 import android.content.Intent;
