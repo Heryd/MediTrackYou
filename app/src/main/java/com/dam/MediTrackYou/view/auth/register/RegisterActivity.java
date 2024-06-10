@@ -1,4 +1,4 @@
-package com.dam.MediTrackYou.auth.register;
+package com.dam.MediTrackYou.view.auth.register;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;

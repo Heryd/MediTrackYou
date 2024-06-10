@@ -1,4 +1,4 @@
-package com.dam.MediTrackYou.database;
+package com.dam.MediTrackYou.model.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
