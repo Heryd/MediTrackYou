@@ -138,7 +138,14 @@ class LoginActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = { LoginController().login() },
+                    onClick = {
+                        LoginController().login(
+                            username,
+                            password,
+                            keepSession,
+                            this@LoginActivity
+                        )
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 5.dp)
