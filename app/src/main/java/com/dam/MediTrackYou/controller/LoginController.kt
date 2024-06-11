@@ -12,4 +12,8 @@ open class LoginController {
         val registerView = Intent(context, RegisterActivity::class.java)
         context.startActivity(registerView, null);
     }
+
+    fun login() {
+
+    }
 }

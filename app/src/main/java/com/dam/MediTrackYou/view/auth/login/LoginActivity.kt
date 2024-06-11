@@ -1,6 +1,5 @@
 package com.dam.MediTrackYou.view.auth.login
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -40,9 +39,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
-import com.dam.MediTrackYou.ui.theme.MediTrackYouTheme
 import com.dam.MediTrackYou.controller.LoginController
+import com.dam.MediTrackYou.ui.theme.MediTrackYouTheme
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,7 +138,7 @@ class LoginActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = { /* Handle login */ },
+                    onClick = { LoginController().login() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 5.dp)
@@ -150,7 +148,7 @@ class LoginActivity : ComponentActivity() {
 
                 Button(
                     onClick = {
-                        val lgController = LoginController().goToRegister(this@LoginActivity)
+                        LoginController().goToRegister(this@LoginActivity)
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                     modifier = Modifier.fillMaxWidth()
