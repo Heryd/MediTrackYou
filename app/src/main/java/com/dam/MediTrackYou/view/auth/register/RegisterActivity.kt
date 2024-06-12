@@ -152,6 +152,7 @@ class RegisterActivity() : AppCompatActivity() {
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.fillMaxWidth()
         )
     }
@@ -196,6 +197,7 @@ class RegisterActivity() : AppCompatActivity() {
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.fillMaxWidth()
         )
     }
