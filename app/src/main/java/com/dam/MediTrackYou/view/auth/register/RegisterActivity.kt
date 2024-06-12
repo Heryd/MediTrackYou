@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,6 +42,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dam.MediTrackYou.controller.RegisterController
 import com.dam.MediTrackYou.ui.theme.MediTrackYouTheme
 
 class RegisterActivity() : AppCompatActivity() {
@@ -298,9 +300,10 @@ class RegisterActivity() : AppCompatActivity() {
                     Text(text = "Borrar")
                 }
                 Button(
-                    onClick = { /*TODO*/ }, modifier = Modifier
+                    onClick = { RegisterController().Close(context) },
+                    modifier = Modifier
                         .weight(1f)
-                        .padding(start = 2.dp)
+                        .padding(start = 2.dp),
                 ) {
                     Text(text = "Cancelar")
                 }
