@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -54,6 +55,8 @@ class LoginActivity : ComponentActivity() {
 
     @Composable
     fun LoginScreen() {
+        val context = LocalContext.current
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -143,7 +146,7 @@ class LoginActivity : ComponentActivity() {
                             username,
                             password,
                             keepSession,
-                            this@LoginActivity
+                            context
                         )
                     },
                     modifier = Modifier
@@ -155,7 +158,7 @@ class LoginActivity : ComponentActivity() {
 
                 Button(
                     onClick = {
-                        LoginController().goToRegister(this@LoginActivity)
+                        LoginController().goToRegister(context)
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                     modifier = Modifier.fillMaxWidth()
