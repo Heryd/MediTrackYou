@@ -107,11 +107,16 @@ class RegisterActivity() : AppCompatActivity() {
             EmailComponent(email, onEmailChange = { email = it })
             PhoneComponent(phone, onPhoneChange = { phone = it })
             UsernameComponent(username, onUsernameChange = { username = it })
-            PasswordComponent(password, onPasswordChange = { password = it }, passwordVisible)
+            PasswordComponent(
+                password,
+                onPasswordChange = { password = it },
+                passwordVisible,
+                onPasswordVisibilityChange = { passwordVisible = it })
             ConfirmPasswordComponent(
                 confirmPassword,
                 onConfirmPasswordChange = { confirmPassword = it },
-                confirmPasswordVisible
+                confirmPasswordVisible,
+                onConfirmPasswordVisibilityChange = { confirmPasswordVisible = it }
             )
 
             TermsAndConditionsComponent(
@@ -126,7 +131,7 @@ class RegisterActivity() : AppCompatActivity() {
     fun DniComponent(dni: String, onDniChange: (String) -> Unit) {
         OutlinedTextField(
             value = dni,
-            onValueChange = { onDniChange },
+            onValueChange = onDniChange,
             label = { Text("Cédula") },
             colors = TextFieldDefaults.colors(
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
@@ -140,7 +145,7 @@ class RegisterActivity() : AppCompatActivity() {
     fun NameComponent(name: String, onNameChange: (String) -> Unit) {
         OutlinedTextField(
             value = name,
-            onValueChange = { onNameChange },
+            onValueChange = onNameChange,
             label = { Text("Nombres") },
             colors = TextFieldDefaults.colors(
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
@@ -154,7 +159,7 @@ class RegisterActivity() : AppCompatActivity() {
     fun EmailComponent(email: String, onEmailChange: (String) -> Unit) {
         OutlinedTextField(
             value = email,
-            onValueChange = { onEmailChange },
+            onValueChange = onEmailChange,
             label = { Text("Email") },
             colors = TextFieldDefaults.colors(
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
@@ -169,7 +174,7 @@ class RegisterActivity() : AppCompatActivity() {
     fun PhoneComponent(phone: String, onPhoneChange: (String) -> Unit) {
         OutlinedTextField(
             value = phone,
-            onValueChange = { onPhoneChange },
+            onValueChange = onPhoneChange,
             label = { Text("Teléfono") },
             colors = TextFieldDefaults.colors(
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
@@ -184,7 +189,7 @@ class RegisterActivity() : AppCompatActivity() {
     fun UsernameComponent(username: String, onUsernameChange: (String) -> Unit) {
         OutlinedTextField(
             value = username,
-            onValueChange = { onUsernameChange },
+            onValueChange = onUsernameChange,
             label = { Text("Username") },
             colors = TextFieldDefaults.colors(
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
@@ -199,11 +204,12 @@ class RegisterActivity() : AppCompatActivity() {
     fun PasswordComponent(
         password: String,
         onPasswordChange: (String) -> Unit,
-        passwordVisible: Boolean
+        passwordVisible: Boolean,
+        onPasswordVisibilityChange: (Boolean) -> Unit
     ) {
         OutlinedTextField(
             value = password,
-            onValueChange = { onPasswordChange },
+            onValueChange = onPasswordChange,
             label = { Text("Contraseña") },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -212,7 +218,7 @@ class RegisterActivity() : AppCompatActivity() {
                     Icons.Filled.Visibility
                 else Icons.Filled.VisibilityOff
 
-                IconButton(onClick = { !passwordVisible }) {
+                IconButton(onClick = { onPasswordVisibilityChange(!passwordVisible) }) {
                     Icon(
                         imageVector = image,
                         contentDescription = if (passwordVisible) "Hide password" else "Show password"
@@ -230,11 +236,13 @@ class RegisterActivity() : AppCompatActivity() {
     @Composable
     fun ConfirmPasswordComponent(
         confirmPassword: String,
-        onConfirmPasswordChange: (String) -> Unit, confirmPasswordVisible: Boolean
+        onConfirmPasswordChange: (String) -> Unit,
+        confirmPasswordVisible: Boolean,
+        onConfirmPasswordVisibilityChange: (Boolean) -> Unit
     ) {
         OutlinedTextField(
             value = confirmPassword,
-            onValueChange = { confirmPassword },
+            onValueChange = onConfirmPasswordChange,
             label = { Text("Confirmar Contraseña") },
             visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -243,7 +251,7 @@ class RegisterActivity() : AppCompatActivity() {
                     Icons.Filled.Visibility
                 else Icons.Filled.VisibilityOff
 
-                IconButton(onClick = { !confirmPasswordVisible }) {
+                IconButton(onClick = { onConfirmPasswordVisibilityChange(!confirmPasswordVisible) }) {
                     Icon(
                         imageVector = image,
                         contentDescription = if (confirmPasswordVisible) "Hide password" else "Show password"
