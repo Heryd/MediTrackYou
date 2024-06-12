@@ -293,9 +293,11 @@ class RegisterActivity() : AppCompatActivity() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = { /*TODO*/ }, modifier = Modifier
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier
                         .weight(1f)
-                        .padding(end = 2.dp)
+                        .padding(end = 2.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                 ) {
                     Text(text = "Borrar")
                 }
@@ -304,6 +306,7 @@ class RegisterActivity() : AppCompatActivity() {
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 2.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
                 ) {
                     Text(text = "Cancelar")
                 }
