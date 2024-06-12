@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -258,7 +259,14 @@ class RegisterActivity() : AppCompatActivity() {
     @Composable
     fun TermsAndConditionsComponent(termsAndConditions: Boolean, onChecked: (Boolean) -> Unit) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Checkbox(checked = termsAndConditions, onCheckedChange = onChecked)
+            Checkbox(
+                checked = termsAndConditions,
+                onCheckedChange = onChecked,
+                colors = CheckboxDefaults.colors(
+                    checkedColor = MaterialTheme.colorScheme.primary,
+                    uncheckedColor = MaterialTheme.colorScheme.surfaceVariant
+                )
+            )
             Text(
                 text = "Aceptar los Términos y Condiciones",
                 color = MaterialTheme.colorScheme.primary
