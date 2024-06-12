@@ -6,14 +6,18 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -23,6 +27,7 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -35,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -98,15 +104,24 @@ class RegisterActivity() : AppCompatActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(16.dp)
+                .pointerInput(Unit) { detectTapGestures { currentFocus?.clearFocus() } },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
+
         ) {
-            DniComponent(dni, onDniChange = { dni = it })
+            RowLayoutDniAndUsername(
+                dni,
+                onDniChange = { dni = it },
+                username,
+                onUsernameChange = { username = it })
             NameComponent(name, onNameChange = { name = it })
-            EmailComponent(email, onEmailChange = { email = it })
-            PhoneComponent(phone, onPhoneChange = { phone = it })
-            UsernameComponent(username, onUsernameChange = { username = it })
+            RowLayoutEmailAndPhone(
+                email,
+                onEmailChange = { email = it },
+                phone,
+                onPhoneChange = { phone = it })
+            BirthDateComponent(birthDate, onBirthDateChange = { birthDate = it }, context)
             PasswordComponent(
                 password,
                 onPasswordChange = { password = it },
@@ -116,7 +131,7 @@ class RegisterActivity() : AppCompatActivity() {
                 confirmPassword,
                 onConfirmPasswordChange = { confirmPassword = it },
                 confirmPasswordVisible,
-                onConfirmPasswordVisibilityChange = { confirmPasswordVisible = it }
+                onConfirmPasswordVisibilityChange = { confirmPasswordVisible = it },
             )
 
             TermsAndConditionsComponent(
@@ -128,7 +143,41 @@ class RegisterActivity() : AppCompatActivity() {
     }
 
     @Composable
-    fun DniComponent(dni: String, onDniChange: (String) -> Unit) {
+    fun RowLayoutDniAndUsername(
+        dni: String,
+        onDniChange: (String) -> Unit,
+        username: String,
+        onUsernameChange: (String) -> Unit
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            DniComponent(dni, onDniChange, Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(8.dp)) // Espacio entre los campos
+            UsernameComponent(username, onUsernameChange, Modifier.weight(1f))
+        }
+    }
+
+    @Composable
+    fun RowLayoutEmailAndPhone(
+        email: String,
+        onEmailChange: (String) -> Unit,
+        phone: String,
+        onPhoneChange: (String) -> Unit
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            EmailComponent(email, onEmailChange, Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(8.dp)) // Espacio entre los campos
+            PhoneComponent(phone, onPhoneChange, Modifier.weight(1f))
+        }
+    }
+
+    @Composable
+    fun DniComponent(dni: String, onDniChange: (String) -> Unit, modifier: Modifier = Modifier) {
         OutlinedTextField(
             value = dni,
             onValueChange = onDniChange,
@@ -137,7 +186,7 @@ class RegisterActivity() : AppCompatActivity() {
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         )
     }
@@ -158,7 +207,11 @@ class RegisterActivity() : AppCompatActivity() {
     }
 
     @Composable
-    fun EmailComponent(email: String, onEmailChange: (String) -> Unit) {
+    fun EmailComponent(
+        email: String,
+        onEmailChange: (String) -> Unit,
+        modifier: Modifier = Modifier
+    ) {
         OutlinedTextField(
             value = email,
             onValueChange = onEmailChange,
@@ -167,13 +220,18 @@ class RegisterActivity() : AppCompatActivity() {
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
+            maxLines = 1,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier
         )
     }
 
     @Composable
-    fun PhoneComponent(phone: String, onPhoneChange: (String) -> Unit) {
+    fun PhoneComponent(
+        phone: String,
+        onPhoneChange: (String) -> Unit,
+        modifier: Modifier = Modifier
+    ) {
         OutlinedTextField(
             value = phone,
             onValueChange = onPhoneChange,
@@ -183,12 +241,60 @@ class RegisterActivity() : AppCompatActivity() {
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier
         )
     }
 
     @Composable
-    fun UsernameComponent(username: String, onUsernameChange: (String) -> Unit) {
+    fun BirthDateComponent(
+        birthDate: String,
+        onBirthDateChange: (String) -> Unit,
+        context: Context
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            OutlinedTextField(
+                value = birthDate,
+                enabled = false,
+                onValueChange = onBirthDateChange,
+                label = { Text("Fecha de Nacimiento") },
+                colors = TextFieldDefaults.colors(
+                    focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedTextColor = MaterialTheme.colorScheme.secondary
+                ),
+                modifier = Modifier
+                    .weight(1f)
+                    .align(Alignment.CenterVertically)
+                    .padding(end = 2.dp)
+            )
+            IconButton(
+                onClick = {
+                    RegisterController().OpenDialog(
+                        context
+                    ) { date -> onBirthDateChange(date) }
+                },
+                modifier = Modifier
+                    .weight(.5f)
+                    .padding(start = 2.dp)
+                    .align(Alignment.CenterVertically),
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.inversePrimary,
+                    contentColor = MaterialTheme.colorScheme.onBackground
+                )
+            ) {
+                Icon(Icons.Default.DateRange, contentDescription = "Select Date")
+            }
+        }
+    }
+
+    @Composable
+    fun UsernameComponent(
+        username: String,
+        onUsernameChange: (String) -> Unit,
+        modifier: Modifier = Modifier
+    ) {
         OutlinedTextField(
             value = username,
             onValueChange = onUsernameChange,
@@ -198,7 +304,7 @@ class RegisterActivity() : AppCompatActivity() {
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier
         )
     }
 
@@ -207,7 +313,7 @@ class RegisterActivity() : AppCompatActivity() {
         password: String,
         onPasswordChange: (String) -> Unit,
         passwordVisible: Boolean,
-        onPasswordVisibilityChange: (Boolean) -> Unit
+        onPasswordVisibilityChange: (Boolean) -> Unit,
     ) {
         OutlinedTextField(
             value = password,
@@ -240,7 +346,7 @@ class RegisterActivity() : AppCompatActivity() {
         confirmPassword: String,
         onConfirmPasswordChange: (String) -> Unit,
         confirmPasswordVisible: Boolean,
-        onConfirmPasswordVisibilityChange: (Boolean) -> Unit
+        onConfirmPasswordVisibilityChange: (Boolean) -> Unit,
     ) {
         OutlinedTextField(
             value = confirmPassword,
@@ -281,7 +387,7 @@ class RegisterActivity() : AppCompatActivity() {
             )
             Text(
                 text = "Aceptar los Términos y Condiciones",
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
     }
