@@ -2,7 +2,8 @@ package com.dam.MediTrackYou.controller
 
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
+import com.dam.MediTrackYou.MainActivity
+import com.dam.MediTrackYou.view.about.AcercadeActivity
 import com.dam.MediTrackYou.view.auth.register.RegisterActivity
 
 open class LoginController {
@@ -12,19 +13,21 @@ open class LoginController {
     }
 
     fun login(username: String, password: String, keepSession: Boolean, context: Context) {
-        if (keepSession) {
-            saveCredentials(username, password, context)
-        }
-        when (validateCredentials()) {
-            true -> Toast.makeText(
-                context,
-                "Acceso Concedido al Usuario $username",
-                Toast.LENGTH_LONG
-            ).show()
-
-            else -> Toast.makeText(context, "Datos Incorrectos", Toast.LENGTH_LONG).show()
-
-        }
+//        if (keepSession) {
+//            saveCredentials(username, password, context)
+//        }
+//        when (validateCredentials()) {
+//            true -> Toast.makeText(
+//                context,
+//                "Acceso Concedido al Usuario $username",
+//                Toast.LENGTH_LONG
+//            ).show()
+//
+//            else -> Toast.makeText(context, "Datos Incorrectos", Toast.LENGTH_LONG).show()
+//
+//        }
+        val activity = Intent(context, AcercadeActivity::class.java)
+        context.startActivity(activity, null)
     }
 
     private fun saveCredentials(user: String, password: String, context: Context) {
