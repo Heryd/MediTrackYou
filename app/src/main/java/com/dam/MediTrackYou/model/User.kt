@@ -1,6 +1,6 @@
 package com.dam.MediTrackYou.model
 
-class Person {
+class User {
     //Primary Fields
     var dni: Int? = 0
     var email: String? = null
@@ -9,11 +9,8 @@ class Person {
 
     //Secondary Fields
     var name: String? = null
-    var lastname: String? = null
     var age: Int? = 0
     var birth_date: String? = null
     var gender: String? = null
-    var nationality: String? = null
     var phone: String? = null
-
 }
