@@ -42,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -101,11 +102,13 @@ class RegisterActivity() : AppCompatActivity() {
         var passwordVisible by remember { mutableStateOf(false) }
         var confirmPasswordVisible by remember { mutableStateOf(false) }
 
+        val focusManager = LocalFocusManager.current
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .pointerInput(Unit) { detectTapGestures { currentFocus?.clearFocus() } },
+                .pointerInput(Unit) { detectTapGestures { focusManager.clearFocus() } },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
 
@@ -138,7 +141,19 @@ class RegisterActivity() : AppCompatActivity() {
                 checkTermsAndConditions,
                 onChecked = { checkTermsAndConditions = it })
 
-            BottomApp(context)
+            BottomApp(context, onClear = {
+                dni = ""
+                name = ""
+                email = ""
+                phone = ""
+                username = ""
+                password = ""
+                confirmPassword = ""
+                birthDate = ""
+                checkTermsAndConditions = false
+                passwordVisible = false
+                confirmPasswordVisible = false
+            })
         }
     }
 
@@ -393,10 +408,11 @@ class RegisterActivity() : AppCompatActivity() {
     }
 
     @Composable
-    fun BottomApp(context: Context) {
+    fun BottomApp(context: Context, onClear: () -> Unit) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Button(
                 onClick = {
+
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -409,7 +425,7 @@ class RegisterActivity() : AppCompatActivity() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = onClear,
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 2.dp),
