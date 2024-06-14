@@ -2,9 +2,10 @@ package com.dam.MediTrackYou.controller
 
 import android.content.Context
 import android.content.Intent
-import com.dam.MediTrackYou.MainActivity
+import android.net.wifi.hotspot2.pps.HomeSp
 import com.dam.MediTrackYou.view.about.AcercadeActivity
 import com.dam.MediTrackYou.view.auth.register.RegisterActivity
+import com.dam.MediTrackYou.view.home.MainActivity
 
 open class LoginController {
     fun goToRegister(context: Context) {
@@ -26,7 +27,7 @@ open class LoginController {
 //            else -> Toast.makeText(context, "Datos Incorrectos", Toast.LENGTH_LONG).show()
 //
 //        }
-        val activity = Intent(context, AcercadeActivity::class.java)
+        val activity = Intent(context, MainActivity::class.java)
         context.startActivity(activity, null)
     }
 
