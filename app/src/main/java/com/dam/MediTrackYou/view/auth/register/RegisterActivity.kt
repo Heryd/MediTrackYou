@@ -20,11 +20,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.outlined.Cake
+import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -40,15 +48,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dam.MediTrackYou.R
 import com.dam.MediTrackYou.controller.RegisterController
 import com.dam.MediTrackYou.ui.theme.MediTrackYouTheme
 
@@ -97,6 +108,8 @@ class RegisterActivity() : AppCompatActivity() {
         var password by remember { mutableStateOf("") }
         var confirmPassword by remember { mutableStateOf("") }
         var birthDate by remember { mutableStateOf("") }
+        var typeOfUser = listOf("Seleccionar...", "Paciente", "Cuidador")
+        var selectedOptionText by remember { mutableStateOf(typeOfUser[0]) }
 
         var checkTermsAndConditions by remember { mutableStateOf(false) }
         var passwordVisible by remember { mutableStateOf(false) }
@@ -125,6 +138,10 @@ class RegisterActivity() : AppCompatActivity() {
                 phone,
                 onPhoneChange = { phone = it })
             BirthDateComponent(birthDate, onBirthDateChange = { birthDate = it }, context)
+            TypeOfUserComponent(
+                typeOfUser,
+                selectedOptionText,
+                onChangeOptionSelected = { selectedOptionText = it })
             PasswordComponent(
                 password,
                 onPasswordChange = { password = it },
@@ -153,6 +170,7 @@ class RegisterActivity() : AppCompatActivity() {
                 checkTermsAndConditions = false
                 passwordVisible = false
                 confirmPasswordVisible = false
+                selectedOptionText = typeOfUser.get(0)
             })
         }
     }
@@ -203,6 +221,13 @@ class RegisterActivity() : AppCompatActivity() {
             ),
             modifier = modifier,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            leadingIcon = {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.id_card_24px),
+                    contentDescription = "Icono de Cédula"
+                )
+            },
+            maxLines = 1
         )
     }
 
@@ -217,7 +242,14 @@ class RegisterActivity() : AppCompatActivity() {
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            leadingIcon = {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.description_24px),
+                    contentDescription = "Icono de Candado"
+                )
+            },
+            maxLines = 1
         )
     }
 
@@ -237,7 +269,13 @@ class RegisterActivity() : AppCompatActivity() {
             ),
             maxLines = 1,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = modifier
+            modifier = modifier,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Email,
+                    contentDescription = "Icono de Correo Electrónico"
+                )
+            }
         )
     }
 
@@ -256,7 +294,14 @@ class RegisterActivity() : AppCompatActivity() {
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            modifier = modifier
+            modifier = modifier,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Phone,
+                    contentDescription = "Icono de Teléfono"
+                )
+            },
+            maxLines = 1
         )
     }
 
@@ -282,7 +327,13 @@ class RegisterActivity() : AppCompatActivity() {
                 modifier = Modifier
                     .weight(1f)
                     .align(Alignment.CenterVertically)
-                    .padding(end = 2.dp)
+                    .padding(end = 2.dp),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Cake,
+                        contentDescription = "Icono de Cumpleaños"
+                    )
+                },
             )
             IconButton(
                 onClick = {
@@ -291,7 +342,7 @@ class RegisterActivity() : AppCompatActivity() {
                     ) { date -> onBirthDateChange(date) }
                 },
                 modifier = Modifier
-                    .weight(.5f)
+                    .weight(.2f)
                     .padding(start = 2.dp)
                     .align(Alignment.CenterVertically),
                 colors = IconButtonDefaults.iconButtonColors(
@@ -319,9 +370,66 @@ class RegisterActivity() : AppCompatActivity() {
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = modifier
+            modifier = modifier,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Person,
+                    contentDescription = "Icono de Candado"
+                )
+            },
+            maxLines = 1
         )
     }
+
+    @Composable
+    fun TypeOfUserComponent(
+        typeOfUser: List<String>,
+        selectedOptionText: String,
+        onChangeOptionSelected: (String) -> Unit
+    ) {
+        OverFlowMenu({
+            typeOfUser.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option) },
+                    onClick = {
+                        onChangeOptionSelected(option)
+                    })
+            }
+        }, selectedOptionText)
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun OverFlowMenu(
+        context: @Composable () -> Unit,
+        selectedOptionText: String,
+    ) {
+        var showMenu by remember { mutableStateOf(false) }
+        ExposedDropdownMenuBox(
+            expanded = showMenu,
+            onExpandedChange = {
+                showMenu = !showMenu
+            }) {
+            OutlinedTextField(
+                readOnly = true,
+                value = selectedOptionText,
+                onValueChange = {},
+                label = { Text("Tipo de Usuario") },
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = showMenu
+                    )
+                },
+                modifier = Modifier
+                    .menuAnchor()
+                    .fillMaxWidth()
+            )
+            ExposedDropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
+                context()
+            }
+        }
+    }
+
 
     @Composable
     fun PasswordComponent(
@@ -336,6 +444,12 @@ class RegisterActivity() : AppCompatActivity() {
             label = { Text("Contraseña") },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Lock,
+                    contentDescription = "Icono de Candado"
+                )
+            },
             trailingIcon = {
                 val image = if (passwordVisible)
                     Icons.Filled.Visibility
@@ -352,7 +466,8 @@ class RegisterActivity() : AppCompatActivity() {
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 1
         )
     }
 
@@ -369,6 +484,12 @@ class RegisterActivity() : AppCompatActivity() {
             label = { Text("Confirmar Contraseña") },
             visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Lock,
+                    contentDescription = "Icono de Candado"
+                )
+            },
             trailingIcon = {
                 val image = if (confirmPasswordVisible)
                     Icons.Filled.Visibility
@@ -385,7 +506,8 @@ class RegisterActivity() : AppCompatActivity() {
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
                 unfocusedTextColor = MaterialTheme.colorScheme.secondary
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 1
         )
     }
 
