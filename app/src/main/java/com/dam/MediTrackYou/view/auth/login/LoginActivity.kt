@@ -16,6 +16,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -87,7 +89,13 @@ class LoginActivity : ComponentActivity() {
                     focusedTextColor = MaterialTheme.colorScheme.onBackground,
                     unfocusedTextColor = MaterialTheme.colorScheme.secondary
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Outlined.PersonOutline,
+                        contentDescription = "Icono de Usuario"
+                    )
+                },
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -98,6 +106,12 @@ class LoginActivity : ComponentActivity() {
                 label = { Text("Password") },
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Lock,
+                        contentDescription = "Icono de Candado"
+                    )
+                },
                 trailingIcon = {
                     val image = if (passwordVisible)
                         Icons.Filled.Visibility
@@ -112,7 +126,11 @@ class LoginActivity : ComponentActivity() {
                 },
                 colors = TextFieldDefaults.colors(
                     focusedTextColor = MaterialTheme.colorScheme.onBackground,
-                    unfocusedTextColor = MaterialTheme.colorScheme.secondary
+                    unfocusedTextColor = MaterialTheme.colorScheme.secondary,
+                    focusedLeadingIconColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedLeadingIconColor = MaterialTheme.colorScheme.secondary,
+                    focusedTrailingIconColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedTrailingIconColor = MaterialTheme.colorScheme.secondary
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
