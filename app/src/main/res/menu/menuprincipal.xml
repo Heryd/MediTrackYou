@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/itemConsultarDatos"
-        android:title="Consultar Datos" />
+        android:id="@+id/itemCalendar"
+        android:title="Calendario" />
     <item
-        android:id="@+id/itemAjustes"
-        android:title="Ajustes" />
+        android:id="@+id/itemPills"
+        android:title="Medicamentos" />
     <item
-        android:id="@+id/itemAcercade"
+        android:id="@+id/itemNearYou"
+        android:title="Cerca de ti" />
+    <item
+        android:id="@+id/itemProfile"
+        android:title="Perfil" />
+    <item
+        android:id="@+id/itemAbout"
         android:title="Acerca de" />
 </menu>
