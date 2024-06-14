@@ -1,6 +1,6 @@
 package com.dam.MediTrackYou.view.about
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,13 +12,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -27,8 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dam.MediTrackYou.R
-import com.dam.MediTrackYou.ui.theme.MediTrackYouTheme
 import com.dam.MediTrackYou.controller.AboutController
+import com.dam.MediTrackYou.ui.theme.MediTrackYouTheme
 
 class AcercadeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,25 +51,59 @@ class AcercadeActivity : AppCompatActivity() {
 
     @Composable
     fun AboutScreen() {
-        val context = LocalContext.current
-        Body(context)
+        Body()
     }
 
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun Body(context: Context) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .pointerInput(Unit) { detectTapGestures { currentFocus?.clearFocus() } },
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+    fun Body() {
+        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+        Surface(
+            modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
-            InformationGroup()
-            ImageGroup()
-            ButtonBack(context)
+            Scaffold(
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                topBar = { TopAppBar() },
+            ) { innerPadding ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .pointerInput(Unit) { detectTapGestures { currentFocus?.clearFocus() } },
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    InformationGroup()
+                    ImageGroup()
+                }
+            }
         }
     }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun TopAppBar() {
+        val context = LocalContext.current
+        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+        TopAppBar(
+            title = { Text("Acerca de", fontWeight = FontWeight.Bold) },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary
+            ),
+            navigationIcon = {
+                IconButton(onClick = { AboutController().Back(context) }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBackIosNew,
+                        contentDescription = "Regresar al Activity Anterior"
+                    )
+                }
+            },
+            scrollBehavior = scrollBehavior
+        )
+    }
+
 
     @Composable
     fun InformationGroup() {
@@ -69,7 +112,8 @@ class AcercadeActivity : AppCompatActivity() {
                 text = "Evidencia Grupo #4",
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(8.dp)
             )
             Text(
                 text = "- COLOMA GUZMAN JOHN STEVEN",
@@ -87,7 +131,8 @@ class AcercadeActivity : AppCompatActivity() {
                 text = "DESARROLLO DE APLICACIONES MOVILES - SOF-S-MA-2",
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(8.dp)
             )
         }
     }
@@ -100,21 +145,6 @@ class AcercadeActivity : AppCompatActivity() {
             contentScale = ContentScale.Fit,
             modifier = Modifier.size(500.dp)
         )
-    }
-
-    @Composable
-    fun ButtonBack(context: Context) {
-        Button(
-            onClick = { AboutController().BackToLogin(context) },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
-        ) {
-            Text(
-                text = "Regresar",
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
     }
 
     @Preview
