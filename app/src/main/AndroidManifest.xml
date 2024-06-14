@@ -38,7 +38,7 @@
             android:name=".view.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.home.MainActivity"
             android:exported="true" />
     </application>
 
