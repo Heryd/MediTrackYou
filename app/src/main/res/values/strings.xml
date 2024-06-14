@@ -65,4 +65,11 @@
         <item>Paciente</item>
         <item>Cuidador</item>
     </string-array>
+
+    <string name="more">Ver más</string>
+    <string name="profile">Perfil</string>
+    <string name="calendar">Calendario</string>
+    <string name="pills">Medicamentos</string>
+    <string name="near_you">Farmacias cercanas</string>
+    <string name="about">Acerca de</string>
 </resources>
